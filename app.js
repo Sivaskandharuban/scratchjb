@@ -7,8 +7,8 @@ var errorhandler = require('errorhandler');
 var http        = require('http');
 var path        = require('path');
 var request     = require('request');
-var routes      = require('./routes');
-var activity    = require('./routes/activity');
+var routes      = require('./js');
+var activity    = require('./js/activity');
 
 var app = express();
 
@@ -20,7 +20,7 @@ app.use(bodyParser.raw({type: 'application/jwt'}));
 //app.use(express.methodOverride());
 //app.use(express.favicon());
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '')));
 
 // Express in Development Mode
 if ('development' == app.get('env')) {
@@ -34,9 +34,9 @@ app.post('/logout', routes.logout );
 
 // Custom Hello World Activity Routes
 app.post('/save/', activity.save );
-app.post('/journeybuilder/validate/', activity.validate );
-app.post('/journeybuilder/publish/', activity.publish );
-app.post('/journeybuilder/execute/', activity.execute );
+app.post('/validate/', activity.validate );
+app.post('/publish/', activity.publish );
+app.post('/execute/', activity.execute );
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
